@@ -1,3 +1,4 @@
+
 package DiaryApp;
 
 import java.time.LocalDateTime;
@@ -33,11 +34,11 @@ public class Entry {
     }
 
     public int getId() {
-            return id;
+        return id;
     }
 
     public LocalDateTime getNewDate(LocalDateTime now){
-       return newDate;
+        return newDate;
     }
 
 

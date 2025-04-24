@@ -13,11 +13,17 @@ public class Diary {
     private int id;
 
     public Diary(String userName, String password) {
+        validateUsername(userName);
         this.userName = userName;
         this.password = password;
         this.entries = new ArrayList<>();
         this.unlocked = false;
         this.id = 1;
+    }
+
+    public void validateUsername(String userName) {
+        if (userName.isBlank()) throw new IllegalArgumentException("Username cannot be blank");
+
     }
 
     public String getUserName() {
@@ -31,7 +37,10 @@ public class Diary {
     }
 
     public List<Entry> getEntries() {
-        return entries;
+        if(unlocked) {
+            return entries;
+        }
+        throw new IllegalArgumentException("Diary is locked!");
     }
 
     public void setUserName(String userName) {
@@ -40,9 +49,7 @@ public class Diary {
     public void setPassword(String newPassword) {
 
         this.password = newPassword;
-
     }
-
     public void lockDiary() {
         unlocked = false;
     }
@@ -58,9 +65,9 @@ public class Diary {
 
     public void createEntry(String title, String bodyOfText) {
         if(unlocked) {
-            Entry entry = new Entry(id,title, bodyOfText);
+            Entry entry = new Entry(id, title, bodyOfText);
             entries.add(entry);
-            ++id;
+            id += 1;
         }
     }
 
@@ -77,8 +84,10 @@ public class Diary {
     }
 
     public Entry findEntryById(int id) {
-        for (int counter = 0; counter < entries.size(); counter++) {
-            Entry entry = entries.get(counter);
+        if(!unlocked) {
+            throw new IllegalArgumentException("Diary is locked!");
+        }
+        for (Entry entry : entries) {
             if (entry.getId() == id) return entry;
         }
         return null;
@@ -94,6 +103,7 @@ public class Diary {
         }
 
     }
+
 }
 
 

@@ -71,7 +71,6 @@ public class DiaryTest {
 
     @Test
     public void testThatDiaryIsNotEmpTyAfterEntryIsCreated() {
-            assertTrue(myDiary.getEntries().isEmpty());
             myDiary.setPassword("1245");
             myDiary.lockDiary();
             myDiary.unlockDiary("1245");
